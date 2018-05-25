@@ -160,6 +160,39 @@ def plot_misclass(train, test):
         plt.xlabel('Iteration', fontsize=14)
 
 
+def crossvalidation(X, y, folds, lambdavals):
+    """
+    This function performs cross validation on the given data
+    to find the best lambda value. The lambda values
+    can be passed manually, as arguments.
+    :param X: A dxn matrix of features
+    :param y: A nx1 vector of labels
+    :param folds: Number of folds
+    :param lambdavals: Lambda values to use
+    :return:
+    """
+    n = X.shape[0]
+    Errors = np.empty((0, len(lambdavals)))
+    index = (list(range(folds)) * (n//folds+1))[0:n]
+    np.random.shuffle(index)
+    index = np.array(index)
+    for i in range(folds):
+        X_train_CV = X[index != i, :]
+        X_test_CV = X[index == i, :]
+        y_train_CV = y[index != i]
+        y_test_CV = y[index == i]
+        Errorsinter = []
+        for lam in lambdavals:
+            betas, _ = mylinearsvm(lam, 0.1, 100, X_train_CV, y_train_CV)
+            y_pred = np.dot(X_test_CV, betas[-1])
+            Errorsinter.append(mean_squared_error(y_test_CV, y_pred))
+        Errors = np.vstack((Errors, Errorsinter))
+    mean_errors = np.mean(Errors, axis = 0)
+    minimum_val = np.max(np.where(mean_errors == mean_errors.min()))
+    lambda_best = lambdavals[minimum_val]
+    print("The best value of lambda is:", lambda_best)
+    return lambda_best
+
 
 
 
