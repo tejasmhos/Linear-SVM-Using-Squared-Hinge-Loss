@@ -31,6 +31,7 @@ y = spam[57]
 y = y.map({0: -1, 1: 1})
 y = np.asarray(y)
 
+# Split the data into training and test using the split on website
 indvar = np.array(traintestind).T[0]
 X_train = X[indvar == 0, :]
 X_test = X[indvar == 1, :]
@@ -94,7 +95,3 @@ print("The misclassification error for the training and test set is:",
 svm.plot_misclass(misclass_train_all_cv, misclass_test_all_cv)
 
 print("Process complete. Exiting. \n")
-
-
-
-

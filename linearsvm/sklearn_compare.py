@@ -67,5 +67,3 @@ print("The misclassification error for training set using sklearn is:", misclass
 print("The misclassification error for test set using sklearn is:", misclass_test_sklearn)
 print("The misclassification error for the training set using my own ", misclass_train_own)
 print("The misclassification error for the test set using my own", misclass_test_own)
-
-

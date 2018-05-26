@@ -211,7 +211,3 @@ def crossvalidation(X, y, folds, lambdavals):
     lambda_best = lambdavals[minimum_val]
     print("The best value of lambda is:", lambda_best)
     return lambda_best
-
-
-
-
