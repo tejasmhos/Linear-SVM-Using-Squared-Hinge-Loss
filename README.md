@@ -1,3 +1,7 @@
+---
+typora-root-url: ./equation.jpeg
+---
+
 # Linear-SVM-Using-Squared-Hinge-Loss
 This is an implementation of a Linear SVM that uses a squared hinge loss. This algorithm was coded using Python. 
 
@@ -5,7 +9,7 @@ This is an implementation of a Linear SVM that uses a squared hinge loss. This a
 
 The Linear SVM that Uses Squared Hinge Loss writes out as shown below:
 
-![equation](/Users/Tejas/Desktop/College Work/DATA 558/polished_release/Linear-SVM-Using-Squared-Hinge-Loss/equation.jpeg)
+![equation](/../equation.jpeg)
 
 The above equation is differentiable and convex, hence we can apply gradient descent. This implementation of the SVM uses the fast gradient algorithm, which improves the speed and accuracy of the descent. As is expected, the SVM is a binary classifier, and can be used to perform classification of data that exists in two classes. If more than two classes exist, multi class classification strategies like one versus one (1v1) and one versus rest (1vr) can be used.
 
