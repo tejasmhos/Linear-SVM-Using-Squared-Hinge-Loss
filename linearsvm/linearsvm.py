@@ -43,7 +43,7 @@ def objective(beta, lambdat, X, y):
     """
     return 1/len(y) * (np.sum(
         (np.maximum(0, 1-((y[:, np.newaxis]*X).dot(beta)))**2)))\
-           + lambdat * np.linalg.norm(beta)**2
+        + lambdat * np.linalg.norm(beta)**2
 
 
 def backtracking(beta, lambdat, t, X, y, alpha=0.5, frac=0.5, maxiter=100):
@@ -90,7 +90,6 @@ def fast_grad(beta_init, theta_init, lambdat, t_init, maxiter, X, y):
     theta = theta_init
     grad = compute_grad(theta, lambdat=lambdat, X=X, y=y)
     beta_vals = beta
-    theta_vals = theta
     iter = 0
     obj_vals = []
     while iter < maxiter:
