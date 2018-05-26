@@ -86,7 +86,7 @@ print("The misclassification error for the training and test set is:",
 
 svm.plot_misclass(misclass_train_all_cv, misclass_test_all_cv)
 
-print("Thanks for demoing\n")
+print("Process complete. Exiting\n ")
 
 
 
