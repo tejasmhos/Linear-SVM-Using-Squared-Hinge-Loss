@@ -44,7 +44,7 @@ scaler.fit(X_train)
 X_train = scaler.transform(X_train)
 X_test = scaler.transform(X_test)
 
-print('Training the model for lambda = 1\n')
+print('Training the model for lambda = 10\n')
 lambda_val = 10
 betas, objective_vals = svm.mylinearsvm(lambda_val, 0.1, 100, X_train, y_train)
 
@@ -56,7 +56,7 @@ plt.plot(objective_vals)
 plt.show()
 
 misclass_train = svm.calc_misclass(betas[-1], X_train, y_train)
-misclass_test = svm.calc_misclass(betas[-1], X_train, y_train)
+misclass_test = svm.calc_misclass(betas[-1], X_test, y_test)
 
 misclass_train_all, misclass_test_all = svm.calc_misclass_all_betas(
     betas, X_train, y_train, X_test, y_test)
@@ -68,12 +68,12 @@ svm.plot_misclass(misclass_train_all, misclass_test_all)
 
 print("Performing cross validation to find the best lambda value\n")
 
-lambda_values = [0.001, 0.01, 0.1, 1, 10, 100, 1000]
+lambda_values = [0.001, 0.01, 0.1, 10, 100, 1000]
 best_lambda = svm.crossvalidation(X_train, y_train, 3, lambda_values)
 
 print("Training the model using this lambda value\n")
 
-betas_cv, objective_vals_cv = svm.mylinearsvm(lambda_val, 0.1, 100, X_train, y_train)
+betas_cv, objective_vals_cv = svm.mylinearsvm(best_lambda, 0.1, 100, X_train, y_train)
 
 plt.figure(figsize=(12, 10))
 plt.title("Objective function vs iteration")
@@ -83,7 +83,7 @@ plt.plot(objective_vals_cv)
 plt.show()
 
 misclass_train_cv = svm.calc_misclass(betas_cv[-1], X_train, y_train)
-misclass_test_cv = svm.calc_misclass(betas_cv[-1], X_train, y_train)
+misclass_test_cv = svm.calc_misclass(betas_cv[-1], X_test, y_test)
 
 misclass_train_all_cv, misclass_test_all_cv = svm.calc_misclass_all_betas(
     betas_cv, X_train, y_train, X_test, y_test)
