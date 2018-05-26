@@ -12,6 +12,7 @@ import scipy.linalg
 import sklearn.preprocessing
 import scipy as sp
 import statistics
+from sklearn.metrics import mean_squared_error
 
 
 def compute_grad(beta, lambdat, X, y):
@@ -25,9 +26,9 @@ def compute_grad(beta, lambdat, X, y):
     :param y: A nx1 vector of labels
     :return: A dx1 vector containing the gradient
     """
-    return -2/len(y)*(
-       np.maximum(0,1-((y[:, np.newaxis]*X).dot(beta)))).dot(
-       y[:, np.newaxis]*X) + 2 * lambdat * beta
+    return -2/len(y)*(np.maximum(0, 1-(
+        (y[:, np.newaxis]*X).dot(beta)))).dot(
+        y[:, np.newaxis]*X) + 2 * lambdat * beta
 
 
 def objective(beta, lambdat, X, y):
@@ -40,8 +41,8 @@ def objective(beta, lambdat, X, y):
     :param y: A nx1 vector of labels
     :return: A float value, equivalent to the value of the objective function
     """
-    return 1/len(y) * (
-        np.sum((np.maximum(0, 1-((y[:, np.newaxis]*X).dot(beta)))**2)))\
+    return 1/len(y) * (np.sum(
+        (np.maximum(0, 1-((y[:, np.newaxis]*X).dot(beta)))**2)))\
            + lambdat * np.linalg.norm(beta)**2
 
 
@@ -64,9 +65,7 @@ def backtracking(beta, lambdat, t, X, y, alpha=0.5, frac=0.5, maxiter=100):
     found_t = False
     iter = 0
     while (not found_t) and iter < maxiter:
-        if objective(beta - t * grad_beta, lambdat=lambdat, X=X, y=y)\
-                < objective(beta, lambdat=lambdat, X=X, y=y)\
-                - alpha * t * norm_grad_beta ** 2:
+        if objective(beta - t * grad_beta, lambdat=lambdat, X=X, y=y) < objective(beta, lambdat=lambdat, X=X, y=y) - alpha * t * norm_grad_beta ** 2:
             found_t = True
         else:
             t *= frac
@@ -121,7 +120,7 @@ def mylinearsvm(lambdat, eta_init, maxiter, X, y):
     beta_init = np.zeros(d)
     theta_init = np.zeros(d)
     betas, objs = fast_grad(beta_init, theta_init, lambdat, eta_init, maxiter,X=X,y=y)
-    return betas,objs
+    return betas, objs
 
 
 def calc_misclass(beta_final, X, y):
@@ -141,6 +140,27 @@ def calc_misclass(beta_final, X, y):
     return err
 
 
+def calc_misclass_all_betas(beta, train_feat, train_lab, test_feat, test_lab):
+    """
+    This function returns the misclassification error across all the betas
+    for all the iterations that are run.
+    :param beta: The array of betas for max_iter iterations
+    :param train_feat: A dxn matrix of training features
+    :param train_lab: An array of training labels
+    :param test_feat: A dxn matrix of test features
+    :param test_lab: An array of test labels
+    :return: misclassfication errors for training and test sets
+    """
+    n, d = beta.shape
+    mis_train = []
+    mis_test = []
+    for i in range(n):
+        mis_train.append(calc_misclass(beta[i], train_feat, train_lab))
+    for i in range(n):
+        mis_test.append(calc_misclass(beta[i], test_feat, test_lab))
+    return mis_train, mis_test
+
+
 def plot_misclass(train, test):
     """
     This function is used to plot the misclassification error, uses
@@ -149,15 +169,14 @@ def plot_misclass(train, test):
     :param test: Test misclassification, array
     :return: Plot
     """
-        plt.clf()
-        plt.figure(figsize=(12, 10))
-
-        ptrain,  = plt.plot(train, label='Train Misclassification')
-        ptest, = plt.plot(test, label='Test Misclassification')
-        plt.legend(handles=[ptrain, ptest], fontsize=14)
-        plt.title('Training vs Test Misclassification', fontsize=16)
-        plt.ylabel('Misclassification', fontsize=14)
-        plt.xlabel('Iteration', fontsize=14)
+    plt.figure(figsize=(12, 10))
+    ptrain,  = plt.plot(train, label='Train Misclassification')
+    ptest, = plt.plot(test, label='Test Misclassification')
+    plt.legend(handles=[ptrain, ptest], fontsize=14)
+    plt.title('Training vs Test Misclassification', fontsize=16)
+    plt.ylabel('Misclassification', fontsize=14)
+    plt.xlabel('Iteration', fontsize=14)
+    plt.show()
 
 
 def crossvalidation(X, y, folds, lambdavals):
