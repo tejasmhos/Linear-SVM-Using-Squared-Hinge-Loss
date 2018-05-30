@@ -1,5 +1,5 @@
 # Linear-SVM-Using-Squared-Hinge-Loss
-This is an implementation of a Linear SVM that uses a squared hinge loss. This algorithm was coded using Python. 
+This is an implementation of a Linear SVM that uses a squared hinge loss. This algorithm was coded using Python. This is my submission for the polished code release for DATA 558 - Statistical Machine Learning. The code was developed by Tejas Hosangadi.
 
 ## The Optimization Problem
 
