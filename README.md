@@ -13,6 +13,29 @@ The algorithm uses backtracking to determine the best step size. In addition, th
 
 
 
+## Directory Structure
+
+The structure of the directory is shown below:
+
+```
+|- Linear-SVM-Using-Squared-Hinge-Loss\
+	|- linearsvm\
+		|- linearsvm.py
+		|- real_data_demo.py
+		|- simulated_data_demo.py
+		|- sklearn_compare.py
+	|- LICENSE
+	|- README.md
+	|- equation.jpeg
+```
+
+1. **linearsvm.py:** This contains all the coded methods required by the project. If you want to understand how I coded my methods, you can have a look at the file. It is not explicitly executable, but contains methods used by the other modules.
+2. **real_data_demo.py:** This module contains the code that demonstrates the SVM for real data, in this case, spam data from The Elements of Statistical Learning.
+3. **simulated_data_demo.py:** This module contains the code that demonstrates the SVM for synthetic/simulated data.
+4. **sklearn_compare.py:** This module contains code that checks the performance of our SVM compared to the one that is implemented by sklearn.
+
+
+
 ## Dependencies 
 
 This code uses a number of different dependencies. First and foremost, Python 3 is required. Most Unix based systems (including Mac), include Python installed. It's always ideal to check to make sure the correct version is installed.
@@ -31,17 +54,6 @@ These can be installed using the pip command or the conda command if an Anaconda
 ## Data
 
 Two types of data are used in the demo files, one is a simulated dataset, and the other is the spam dataset from The Elements of Statistical Learning. All data is downloaded on execution, and you are not required to manually download or install any data.
-
-
-
-## Structure of the Project
-
-All the source code is placed in the linearsvm folder. There are 4 files present in the directory:
-
-1. **linearsvm.py:** This contains all the coded methods required by the project. If you want to understand how I coded my methods, you can have a look at the file. It is not explicitly executable, but contains methods used by the other modules.
-2. **real_data_demo.py:** This module contains the code that demonstrates the SVM for real data, in this case, spam data from The Elements of Statistical Learning.
-3. **simulated_data_demo.py:** This module contains the code that demonstrates the SVM for synthetic/simulated data.
-4. **sklearn_compare.py:** This module contains code that checks the performance of our SVM compared to the one that is implemented by sklearn.
 
 
 
